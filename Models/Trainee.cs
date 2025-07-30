@@ -11,6 +11,7 @@ namespace Course_mvc_iTi.Models
         [Required]
         public string Name { get; set; }
         public string Imag { get; set; }
+        [Required]
         public string Address { get; set; }
         public double Grade { get; set; }
 
