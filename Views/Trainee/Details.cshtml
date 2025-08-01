@@ -1,0 +1,27 @@
+﻿@model DetailsTraineeScoreViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<table  class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Score</th>
+        </tr>
+    </thead>
+    <tbody style="color: @Model.Color" >
+        
+        <tr>
+            <th scope="row">@Model.TraineeId</th>
+            <td>@Model.TraineeName</td>
+            <td>@Model.CourseName</td>
+            <td>@Model.Degree</td>
+        </tr>
+        
+    </tbody>
+</table>
