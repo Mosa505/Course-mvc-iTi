@@ -1,0 +1,32 @@
+﻿@model List<DetailsTraineeScoreViewModel>
+@{
+    ViewData["Title"] = "AllDetails";
+}
+
+<h1>AllDetails</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Score</th>
+        </tr>
+    </thead>
+    @foreach (var Item in Model)
+    {
+
+        <tbody style="color: @Item.Color">
+
+            <tr>
+                <th scope="row">@Item.TraineeId</th>
+                <td>@Item.TraineeName</td>
+                <td>@Item.CourseName</td>
+                <td>@Item.Score</td>
+            </tr>
+
+        </tbody>
+    }
+
+</table>

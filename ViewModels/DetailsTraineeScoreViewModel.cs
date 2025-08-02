@@ -6,6 +6,6 @@
         public string TraineeName { get; set; }
         public string CourseName { get; set; }
         public string Color{ get; set; }
-        public int Degree { get; set; }
+        public int Score { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Course_mvc_iTi.Models;
 using Course_mvc_iTi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Course_mvc_iTi.Controllers
@@ -8,38 +9,61 @@ namespace Course_mvc_iTi.Controllers
     public class TraineeController : Controller
     {
         public CourseDbContext context = new CourseDbContext();
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, int idCourse)
         {
-            var TraineId = context.trainees.FirstOrDefault(x => x.Id == id);
-            var TraineGrade = context.trainees.Select(x => x.Grade).ToList();
-            var CosName = context.courses.Select(x => x.Name).ToList();
-          
-            string ColorRed = "Red";
-            string ColorGreen = "Green";
-            DetailsTraineeScoreViewModel Det = new DetailsTraineeScoreViewModel();
+            var Trainee = context.crsResults
+                .Where(E => E.Trainee_Id == id && E.Crs_Id == idCourse)
+                .Select(E => new DetailsTraineeScoreViewModel
+                {
+                    TraineeId = E.Trainee_Id,
+                    TraineeName = E.trainee.Name,
+                    CourseName = E.course.Name,
+                    Score = E.Degree
 
-            Det.TraineeId = TraineId.Id;
-            Det.TraineeName = TraineId.Name;
-            foreach (var Iteam in CosName)
-            {
-                Det.CourseName = Iteam;
-            }
-            foreach (var Iteam in TraineGrade)
-            {
-                 Det.Degree =(int)Iteam;
-            
-            }
+
+                }).FirstOrDefault();
+
            
 
-            if (Det.Degree > 60)
-            {
-                Det.Color= ColorGreen;
-            }
-            else
-                Det.Color = ColorRed;
+            
+
+            Trainee.Color = Trainee.Score >= 60 ? "Green" : "Red";
 
 
-            return View(Det);
+
+
+
+
+
+
+            return View(Trainee);
+        }
+
+        public IActionResult AllDetails(int id)
+        {
+            var Result = context.crsResults
+                .Where(E => E.Trainee_Id == id)
+                .Select(E => new DetailsTraineeScoreViewModel
+                {
+                    TraineeId = E.trainee.Id,
+                    TraineeName = E.trainee.Name,
+                    CourseName = E.course.Name,
+                    Score = E.Degree
+
+                }).ToList();
+
+            foreach (var item in Result)
+                item.Color = item.Score >= 60 ? "Green" : "Red";
+
+
+
+
+
+            return View(Result);
+
+
+
+
         }
     }
 }
