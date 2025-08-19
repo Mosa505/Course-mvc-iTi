@@ -8,6 +8,7 @@ namespace Course_mvc_iTi.Controllers
         public CourseDbContext context = new CourseDbContext();
         public IActionResult Index()
         {
+            ViewData["Dept_List"] = context.departments.ToList();
             List<Instructor> ViewAll = context.instructors.ToList();
 
             return View(ViewAll);
@@ -28,13 +29,14 @@ namespace Course_mvc_iTi.Controllers
 
         }
 
+        [HttpPost]
         public IActionResult SaveEdit(int id, Instructor Inst)
         {
             Instructor OldData = context.instructors.FirstOrDefault(e => e.Id == id);
 
             if (Inst.Name != null && Inst.Salary != null)
             {
-                
+
                 if (OldData != null)
                 {
                     OldData.Name = Inst.Name;
@@ -50,9 +52,33 @@ namespace Course_mvc_iTi.Controllers
             }
             ViewData["DeptId"] = context.departments.ToList();
             ViewData["CourseId"] = context.courses.ToList();
-            return View("Edit" , Inst);
+            return View("Edit", Inst);
 
 
         }
+
+        public IActionResult NewInstructor()
+        {
+            ViewData["DeptId"] = context.departments.ToList();
+            ViewData["CourseId"] = context.courses.ToList();
+            return View();
+
+        }
+
+        public IActionResult SaveNEW(Instructor Inst)
+        {
+            ViewData["DeptId"] = context.departments.ToList();
+            ViewData["CourseId"] = context.courses.ToList();
+            if (Inst.Name != null && Inst.Salary != null)
+            {
+                context.instructors.Add(Inst);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+
+            return View("NewInstructor", Inst);
+        }
+
     }
 }

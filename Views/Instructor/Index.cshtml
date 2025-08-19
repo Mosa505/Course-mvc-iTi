@@ -10,7 +10,7 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
-            <th scope="col">Department ID</th>
+            <th scope="col">Department</th>
             <th scope="col">More Detail</th>
             <th scope="col">Edit</th>
 
@@ -23,20 +23,31 @@
                 <th scope="row">@item.Id</th>
                 <td>@item.Name</td>
                 <td>@item.Address</td>
-                <td>@item.Dept_Id</td>
+                @foreach (Department Dept in ViewBag.Dept_List)
+                    @if (item.Dept_Id == Dept.Id)
+                    {
+                        <td>@Dept.Name</td>
+                    }
+
                 <td>
                     <a href="/Instructor/Detail/@item.Id" style="background-color: gold; color: black; padding: 4px 5px; text-decoration: none; border: none; border-radius: 5px; display: inline-block;">
                         Show This Instructor
                     </a>
                 </td>
                 <td>
-                    <a href="/Instructor/Edit/@item.Id"> Edit </a>
+                    <a href=" /Instructor/Edit/@item.Id" class="btn btn-primary">
+                        Edit
+                    </a>
                 </td>
-               
+
 
             </tr>
 
         </tbody>
     }
 </table>
+<a href="/Instructor/NewInstructor" class="btn btn-primary">
+    Add Instructor
+</a>
 
+                   
