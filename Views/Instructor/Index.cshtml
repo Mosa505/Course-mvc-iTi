@@ -12,6 +12,7 @@
             <th scope="col">Address</th>
             <th scope="col">Department ID</th>
             <th scope="col">More Detail</th>
+            <th scope="col">Edit</th>
 
         </tr>
     </thead>
@@ -25,8 +26,11 @@
                 <td>@item.Dept_Id</td>
                 <td>
                     <a href="/Instructor/Detail/@item.Id" style="background-color: gold; color: black; padding: 4px 5px; text-decoration: none; border: none; border-radius: 5px; display: inline-block;">
-                        Show This Student
+                        Show This Instructor
                     </a>
+                </td>
+                <td>
+                    <a href="/Instructor/Edit/@item.Id"> Edit </a>
                 </td>
                
 
