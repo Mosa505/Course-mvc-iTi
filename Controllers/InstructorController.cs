@@ -1,5 +1,6 @@
 ﻿using Course_mvc_iTi.Models;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Frameworks;
 
 namespace Course_mvc_iTi.Controllers
 {
@@ -65,11 +66,12 @@ namespace Course_mvc_iTi.Controllers
 
         }
 
+        [HttpPost]
         public IActionResult SaveNEW(Instructor Inst)
         {
             ViewData["DeptId"] = context.departments.ToList();
             ViewData["CourseId"] = context.courses.ToList();
-            if (Inst.Name != null && Inst.Salary != null)
+            if (Inst.Name != null && Inst.Salary != null )
             {
                 context.instructors.Add(Inst);
                 context.SaveChanges();
@@ -78,6 +80,19 @@ namespace Course_mvc_iTi.Controllers
             }
 
             return View("NewInstructor", Inst);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Instructor DelInstructor = context.instructors.FirstOrDefault(x => x.Id == id);
+            if (DelInstructor != null)
+            {
+                context.Remove(DelInstructor);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View ("Index");
         }
 
     }

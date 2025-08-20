@@ -12,7 +12,7 @@ namespace Course_mvc_iTi.Models
         public string Name { get; set; }
 
         public string Imag { get; set; }
-        public double  Salary { get; set; }
+        public double? Salary { get; set; }
         [Required]
         public string Address { get; set; }
 
