@@ -12,7 +12,6 @@ namespace Course_mvc_iTi.Controllers
         {
             return View(context.courses.ToList());
         }
-
         public IActionResult Edit(int id)
         {
             Course course = context.courses.FirstOrDefault(e => e.Id == id);
@@ -22,7 +21,6 @@ namespace Course_mvc_iTi.Controllers
 
             return View(course);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SaveEdit(int id, Course course)
@@ -44,6 +42,34 @@ namespace Course_mvc_iTi.Controllers
             }
             ViewData["ListOfDepartment"] = context.departments.ToList();
             return View("Edit", course);
+
+        }
+        public ActionResult AddCourse()
+        {
+            ViewData["ListOfDepartment"] = context.departments.ToList();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveNew(Course course)
+        {
+
+            if (course != null)
+            {
+                if (course.Name != null && course.Dept_Id != null)
+                {
+                    context.courses.Add(course);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+
+
+                }
+            }
+
+            ViewData["ListOfDepartment"] = context.departments.ToList();
+            return View("Edit", course);
+
+
 
         }
     }
