@@ -6,14 +6,15 @@ namespace Course_mvc_iTi.Models
 {
     public class Course
     {
-
         public int Id { get; set; }
         [Required]
+        [Display(Name="Course Name")]
         public string Name { get; set; }
         public int Degree { get; set; }
         public int MinDegree { get; set; }
 
         [ForeignKey("department")]
+        [Display(Name ="Department Name")]
         public int Dept_Id { get; set; }
         public Department department { get; set; }
 

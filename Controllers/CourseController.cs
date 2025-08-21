@@ -1,0 +1,50 @@
+﻿using AspNetCoreGeneratedDocument;
+using Course_mvc_iTi.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Course_mvc_iTi.Controllers
+{
+    public class CourseController : Controller
+    {
+
+        public CourseDbContext context = new CourseDbContext();
+        public IActionResult Index()
+        {
+            return View(context.courses.ToList());
+        }
+
+        public IActionResult Edit(int id)
+        {
+            Course course = context.courses.FirstOrDefault(e => e.Id == id);
+
+            ViewData["ListOfDepartment"] = context.departments.ToList();
+
+
+            return View(course);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SaveEdit(int id, Course course)
+        {
+            Course oldEdit = context.courses.FirstOrDefault(c => c.Id == id);
+            if (course.Name != null)
+            {
+
+                if (oldEdit != null)
+                {
+                    oldEdit.Name = course.Name;
+                    oldEdit.Degree = course.Degree;
+                    oldEdit.MinDegree = course.MinDegree;
+                    oldEdit.Dept_Id = course.Dept_Id;
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+            }
+            ViewData["ListOfDepartment"] = context.departments.ToList();
+            return View("Edit", course);
+
+        }
+    }
+}
