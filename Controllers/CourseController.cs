@@ -72,5 +72,19 @@ namespace Course_mvc_iTi.Controllers
 
 
         }
+        public ActionResult Delete(int id)
+        {
+            Course course = context.courses.FirstOrDefault(c => c.Id == id);
+            if (course != null) 
+            { 
+              context.courses.Remove(course);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Index",course);
+
+        }
+
+
     }
 }
