@@ -54,16 +54,13 @@ namespace Course_mvc_iTi.Controllers
         public ActionResult SaveNew(Course course)
         {
 
-            if (course != null)
+            if (ModelState.IsValid)
             {
-                if (course.Name != null && course.Dept_Id != null)
-                {
+                
                     context.courses.Add(course);
                     context.SaveChanges();
                     return RedirectToAction("Index");
 
-
-                }
             }
 
             ViewData["ListOfDepartment"] = context.departments.ToList();
@@ -85,6 +82,16 @@ namespace Course_mvc_iTi.Controllers
 
         }
 
+        public IActionResult MinDegree(int MinDegree , int Degree) 
+        {
+
+            if (MinDegree < Degree) 
+            {
+                return Json(true);
+            }
+            return Json(false);
+        
+        }
 
     }
 }
