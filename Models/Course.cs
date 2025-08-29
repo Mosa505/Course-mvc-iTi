@@ -8,9 +8,10 @@ namespace Course_mvc_iTi.Models
     public class Course
     {
         public int Id { get; set; }
-        [Required (ErrorMessage ="Have No Name")]
+        [Required]
         [MaxLength(10)]
         [MinLength(2)]
+        [UniqueName]
         [Display(Name = "Course Name")]
         public string Name { get; set; }
         [Required]

@@ -27,7 +27,8 @@
                 @foreach (Department Dept in ViewBag.Dept_List)
                     @if (item.Dept_Id == Dept.Id)
                     {
-                        <td>@Dept.Name</td>
+                        @* <td>@Dept.Name</td> *@
+                        <td> <partial name="_TestPartial" model="item"></partial></td>
                     }
                 <td>
                     <a href="/Instructor/Detail/@item.Id" style="background-color: gold; color: black; padding: 4px 5px; text-decoration: none; border: none; border-radius: 5px; display: inline-block;">

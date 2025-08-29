@@ -53,15 +53,13 @@ namespace Course_mvc_iTi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SaveNew(Course course)
         {
-
-            if (ModelState.IsValid)
+            if (course != null)
             {
-                
-                    context.courses.Add(course);
-                    context.SaveChanges();
-                    return RedirectToAction("Index");
-
+                context.courses.Add(course);
+                context.SaveChanges();
+                return RedirectToAction("Index");
             }
+
 
             ViewData["ListOfDepartment"] = context.departments.ToList();
             return View("Edit", course);
@@ -72,25 +70,25 @@ namespace Course_mvc_iTi.Controllers
         public ActionResult Delete(int id)
         {
             Course course = context.courses.FirstOrDefault(c => c.Id == id);
-            if (course != null) 
-            { 
-              context.courses.Remove(course);
+            if (course != null)
+            {
+                context.courses.Remove(course);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View("Index",course);
+            return View("Index", course);
 
         }
 
-        public IActionResult MinDegree(int MinDegree , int Degree) 
+        public IActionResult MinDegree(int MinDegree, int Degree)
         {
 
-            if (MinDegree < Degree) 
+            if (MinDegree < Degree)
             {
                 return Json(true);
             }
             return Json(false);
-        
+
         }
 
     }
