@@ -15,6 +15,12 @@ namespace Course_mvc_iTi.Controllers
             return View(ViewAll);
         }
 
+        public IActionResult DetailPartialView(int id)
+        {
+            var ins = context.instructors.Find(id);
+            return PartialView("_DetailPartial",ins);
+
+        }
         public IActionResult Detail(int Id)
         {
             var ViewById = context.instructors.Where(E => E.Id == Id).FirstOrDefault();
@@ -71,7 +77,7 @@ namespace Course_mvc_iTi.Controllers
         {
             ViewData["DeptId"] = context.departments.ToList();
             ViewData["CourseId"] = context.courses.ToList();
-            if (Inst.Name != null && Inst.Salary != null )
+            if (Inst.Name != null && Inst.Salary != null)
             {
                 context.instructors.Add(Inst);
                 context.SaveChanges();
@@ -92,7 +98,7 @@ namespace Course_mvc_iTi.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View ("Index");
+            return View("Index");
         }
 
     }
