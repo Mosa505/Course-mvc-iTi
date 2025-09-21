@@ -7,6 +7,13 @@ namespace Course_mvc_iTi.Controllers
     public class InstructorController : Controller
     {
         public CourseDbContext context = new CourseDbContext();
+
+        public IActionResult CoursesOfDepartment(int dept_Id)
+        {
+            var crs = context.courses.Where(e=>e.Dept_Id == dept_Id).ToList();
+            return PartialView("_CoursesOfDepartmentPartial", crs);
+
+        }
         public IActionResult Index()
         {
             ViewData["Dept_List"] = context.departments.ToList();
@@ -18,7 +25,7 @@ namespace Course_mvc_iTi.Controllers
         public IActionResult DetailPartialView(int id)
         {
             var ins = context.instructors.Find(id);
-            return PartialView("_DetailPartial",ins);
+            return PartialView("_DetailPartial", ins);
 
         }
         public IActionResult Detail(int Id)

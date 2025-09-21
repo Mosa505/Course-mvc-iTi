@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Course>
+
+
+<option value=0>---- Select Course ------</option>
+@foreach (var item in Model)
+{
+    
+    <option value="@item.Id"> @item.Name</option>
+
+}

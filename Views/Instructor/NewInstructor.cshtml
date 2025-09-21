@@ -1,6 +1,8 @@
-﻿@model Instructor        
+﻿@model Instructor
 @{
     ViewData["Title"] = "NewInstructor";
+
+    SelectList Depts = new SelectList(ViewBag.DeptId, "Id", "Name");
 }
 
 <h1>Add Instructor</h1>
@@ -22,29 +24,49 @@
     </div>
     <div class="form-group col-md-6">
         <label for="Imag">Imag</label>
-        <input type="text" class="form-control" name="Imag" id="Imag" >
+        <input type="text" class="form-control" name="Imag" id="Imag">
     </div>
     <div class="form-group col-md-4">
         <label for="inputState"> Department Name </label>
-        <select name="Dept_Id" id="Dept_Id" class="form-control">
-            <option selected></option>
-            @foreach (Department DeptID in ViewBag.DeptId)
-            {     
-                <option value="@DeptID.Id" > @DeptID.Name</option> 
-            }
+        <select name="Dept_Id" id="Dept_Id" class="form-control" asp-items="Depts" onchange="GetCourse()">
+            <option value=0>---- Select Department ------</option>
+          
         </select>
     </div>
 
     <div class="form-group col-md-4">
         <label for="inputState"> Course Name </label>
-        <select name="Crs_Id" id="Crs_Id" class="form-control">
-            <option selected></option>
-            @foreach (Course Crsid in ViewBag.CourseId)
-            {
-                    <option value="@Crsid.Id"> @Crsid.Name</option>
-            }
+        <select name="Crs_Id" id="Crs_Id" class="form-control" >
+           
         </select>
     </div>
+
+
     <br>
     <button type="submit" class="btn btn-primary"> Save </button>
 </form>
+@section Scripts {
+
+    <script>
+
+        function GetCourse()
+        {
+
+         var crs = document.getElementById("Dept_Id").value;
+         console.log(crs);
+         $.ajax({
+
+             url: "/Instructor/CoursesOfDepartment?dept_Id="+crs,
+              success: function(result)
+              {
+                  console.log(result);
+                 document.getElementById("Crs_Id").innerHTML= result;
+              }
+         
+         });
+        }
+
+
+    </script>
+
+}
