@@ -15,10 +15,12 @@ namespace Course_mvc_iTi
             builder.Services.AddSession();
             builder.Services.AddScoped<ICourseRepository,CourseRepository>();
 
+
+            var conString = builder.Configuration.GetConnectionString("Sql");
             builder.Services.AddDbContext<CourseDbContext>(OptionBuilder =>
             {
 
-                OptionBuilder.UseSqlServer("Server = . ; Database = CourseDb ; Trusted_Connection = true");
+                OptionBuilder.UseSqlServer(conString);
             }
             );
 
