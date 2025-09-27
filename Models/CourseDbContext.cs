@@ -5,6 +5,11 @@ namespace Course_mvc_iTi.Models
     public class CourseDbContext : DbContext
     {
 
+
+        public CourseDbContext(DbContextOptions options):base(options) 
+        {
+            
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server = . ; Database = CourseDb ; Trusted_Connection = true ");
