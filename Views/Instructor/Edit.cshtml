@@ -26,7 +26,7 @@
     </div>
     <div class="form-group col-md-4">
         <label for="inputState"> Department Name </label>
-        <select name="Dept_Id" id="Dept_Id" class="form-control">
+      @*   <select name="Dept_Id" id="Dept_Id" class="form-control">
             @foreach (Department DeptID in ViewBag.DeptId)
             {
                 if (Model.Dept_Id == DeptID.Id)
@@ -38,12 +38,12 @@
                     <option value="@DeptID.Id"> @DeptID.Name</option>
                 }
             }
-        </select>
+        </select> *@
     </div>
 
     <div class="form-group col-md-4">
         <label for="inputState"> Course Name </label>
-        <select name="Crs_Id" id="Crs_Id" class="form-control">
+       @*  <select name="Crs_Id" id="Crs_Id" class="form-control">
             @foreach ( Course Crsid in ViewBag.CourseId)
             {
                 if (Model.Crs_Id == Crsid.Id)
@@ -55,7 +55,7 @@
                     <option value="@Crsid.Id"> @Crsid.Name</option>
                 }
             }
-        </select>
+        </select> *@
     </div>
     <br>
     <button type="submit" class="btn btn-primary"> Save Edit </button>

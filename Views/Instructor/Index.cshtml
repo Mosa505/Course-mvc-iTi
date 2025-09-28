@@ -10,8 +10,7 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
-            <th scope="col"></th>
-            <th scope="col">Department</th>
+            @* <th scope="col">Department</th> *@
             <th scope="col">More Detail</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
@@ -32,12 +31,12 @@
                 </td>
                 <td>@item.Address</td>
                 @* <td> <partial name="_DetailPartial" model="item"></partial></td> *@
-                @foreach (Department Dept in ViewBag.Dept_List)
+                @* @foreach (Department Dept in ViewBag.Dept_List)
                     @if (item.Dept_Id == Dept.Id)
                     {
                         <td>@Dept.Name</td>
 
-                    }
+                    } *@
 
                 <td>
                     <a href="/Instructor/Detail/@item.Id" style="background-color: gold; color: black; padding: 4px 5px; text-decoration: none; border: none; border-radius: 5px; display: inline-block;">

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "NewInstructor";
 
-    SelectList Depts = new SelectList(ViewBag.DeptId, "Id", "Name");
+    //SelectList Depts = new SelectList(ViewBag.DeptId, "Id", "Name");
 }
 
 <h1>Add Instructor</h1>
@@ -28,10 +28,10 @@
     </div>
     <div class="form-group col-md-4">
         <label for="inputState"> Department Name </label>
-        <select name="Dept_Id" id="Dept_Id" class="form-control" asp-items="Depts" onchange="GetCourse()">
+       @*  <select name="Dept_Id" id="Dept_Id" class="form-control" asp-items="Depts" onchange="GetCourse()">
             <option value=0>---- Select Department ------</option>
           
-        </select>
+        </select> *@
     </div>
 
     <div class="form-group col-md-4">

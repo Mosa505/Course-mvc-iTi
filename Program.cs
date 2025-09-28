@@ -14,7 +14,7 @@ namespace Course_mvc_iTi
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession();
             builder.Services.AddScoped<ICourseRepository,CourseRepository>();
-
+            builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
 
             var conString = builder.Configuration.GetConnectionString("Sql");
             builder.Services.AddDbContext<CourseDbContext>(OptionBuilder =>
@@ -51,6 +51,7 @@ namespace Course_mvc_iTi
 
                 }
                 );
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

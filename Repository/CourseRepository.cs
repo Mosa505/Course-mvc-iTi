@@ -26,7 +26,7 @@ namespace Course_mvc_iTi.Repository
 
         public Course GetById(int id)
         {
-           Course crs = _Context.courses.FirstOrDefault(x => x.Id == id);
+           Course crs = _Context.courses.Find(id);
             return crs;
         }
 
