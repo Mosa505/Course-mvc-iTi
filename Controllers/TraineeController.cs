@@ -8,10 +8,9 @@ namespace Course_mvc_iTi.Controllers
 {
     public class TraineeController : Controller
     {
-        //public CourseDbContext context = new CourseDbContext();
         //public IActionResult Details(int id, int idCourse)
         //{
-            
+
         //    var Trainee = context.crsResults
         //        .Where(E => E.Trainee_Id == id && E.Crs_Id == idCourse)
         //        .Select(E => new DetailsTraineeScoreViewModel
@@ -30,7 +29,7 @@ namespace Course_mvc_iTi.Controllers
         //    CookieOptions option = new CookieOptions();
         //    option.Expires = DateTime.Now.AddHours(2);
 
-        //    Response.Cookies.Append("Id",id.ToString());
+        //    Response.Cookies.Append("Id", id.ToString());
 
         //    Trainee.Color = Trainee.Score >= 60 ? "Green" : "Red";
 
