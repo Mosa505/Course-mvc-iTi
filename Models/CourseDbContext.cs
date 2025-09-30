@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Course_mvc_iTi.Models
 {
-    public class CourseDbContext : DbContext
+    public class CourseDbContext : IdentityDbContext<ApplicationUser>
     {
 
 
