@@ -1,5 +1,6 @@
 using Course_mvc_iTi.Models;
 using Course_mvc_iTi.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Course_mvc_iTi
@@ -15,6 +16,8 @@ namespace Course_mvc_iTi
             builder.Services.AddSession();
             builder.Services.AddScoped<ICourseRepository,CourseRepository>();
             builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<CourseDbContext>();
 
             var conString = builder.Configuration.GetConnectionString("Sql");
             builder.Services.AddDbContext<CourseDbContext>(OptionBuilder =>
