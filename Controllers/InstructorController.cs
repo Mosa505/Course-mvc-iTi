@@ -1,5 +1,6 @@
 ﻿using Course_mvc_iTi.Models;
 using Course_mvc_iTi.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Frameworks;
 
@@ -21,6 +22,7 @@ namespace Course_mvc_iTi.Controllers
         //}
         //[Route("inst/{id:int?}")]
         [HttpGet("inst/{id:int?}")]
+        [Authorize]
         public IActionResult Index()
         {
             //ViewData["Dept_List"] = context.departments.ToList();

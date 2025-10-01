@@ -2,6 +2,7 @@ using Course_mvc_iTi.Models;
 using Course_mvc_iTi.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Course_mvc_iTi
 {
@@ -14,9 +15,15 @@ namespace Course_mvc_iTi
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession();
-            builder.Services.AddScoped<ICourseRepository,CourseRepository>();
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
             builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {  // Control Password 
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+
+            })
                 .AddEntityFrameworkStores<CourseDbContext>();
 
             var conString = builder.Configuration.GetConnectionString("Sql");
@@ -41,7 +48,7 @@ namespace Course_mvc_iTi
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
 
@@ -50,7 +57,7 @@ namespace Course_mvc_iTi
                 "inst/{id:int?}", new
                 {
                     Controller = "Instructor",
-                    action= "Index"
+                    action = "Index"
 
                 }
                 );
