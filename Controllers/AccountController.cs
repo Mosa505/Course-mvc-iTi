@@ -11,7 +11,6 @@ namespace Course_mvc_iTi.Controllers
     {
         private readonly UserManager<ApplicationUser> appUser;
         private readonly SignInManager<ApplicationUser> signIn;
-
         public AccountController(UserManager<ApplicationUser> appUser, SignInManager<ApplicationUser> signIn)
         {
             this.appUser = appUser;
@@ -56,11 +55,36 @@ namespace Course_mvc_iTi.Controllers
             return View(NewAccount);
 
         }
+        public IActionResult Login()
+        {
 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(AccountLoginViewModel Login)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser LoginUser = await appUser.FindByNameAsync(Login.Name);
+                if (LoginUser != null)
+                {
+                    bool found = await appUser.CheckPasswordAsync(LoginUser, Login.Password);
+                    if (found)
+                    {
+                        await signIn.SignInAsync(LoginUser, Login.RememberMe);
+                        return RedirectToAction("Index", "Instructor");
+                    }
+                }
+                ModelState.AddModelError("", "User Name Or password is Wrong ");
+            }
+
+            return View();
+        }
         public async Task<IActionResult> Logout()
         {
             await signIn.SignOutAsync();//Delete Cookie 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Register");
         }
     }
 }

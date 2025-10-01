@@ -48,7 +48,7 @@ namespace Course_mvc_iTi
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();
+            app.UseAuthentication();//Filter Authorization "Cookie"
             app.UseAuthorization();
             app.UseSession();
 
