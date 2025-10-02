@@ -1,8 +1,10 @@
 ﻿using Course_mvc_iTi.Migrations;
 using Course_mvc_iTi.Models;
 using Course_mvc_iTi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Course_mvc_iTi.Controllers
@@ -39,8 +41,9 @@ namespace Course_mvc_iTi.Controllers
                 if (result.Succeeded)
                 {
                     // Create Cookie
-                    await signIn.SignInAsync(user, false);
 
+                    await signIn.SignInAsync(user, false);
+                    await appUser.AddToRoleAsync(user, "Student");
                     return RedirectToAction("index", "Home");
                 }
                 else
@@ -86,5 +89,46 @@ namespace Course_mvc_iTi.Controllers
             await signIn.SignOutAsync();//Delete Cookie 
             return RedirectToAction("Register");
         }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AddAdmin()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles="Admin")]
+        public async Task<IActionResult> AddAdmin(AccountRegisterViewModel Newadmin)
+        {
+            if (ModelState.IsValid)
+            {
+                // save db 
+                ApplicationUser user = new ApplicationUser();
+               user.Email = Newadmin.Email;
+                user.Address = Newadmin.Address;
+                user.PasswordHash = Newadmin.Password;
+                user.UserName = Newadmin.Name;
+
+                IdentityResult result = await appUser.CreateAsync(user,Newadmin.Password);
+                if (result.Succeeded)
+                {
+                    
+                    await appUser.AddToRoleAsync(user, "Admin");
+                    await signIn.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Instructor");
+                }
+                else
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("",item.Description);
+                    }
+                }
+            }
+            return View(Newadmin);
+        }
+
+
     }
 }
